@@ -112,12 +112,6 @@ prop_area* prop_area::map_fd_ro(const int fd, bool rw) {
     return nullptr;
   }
 
-  if ((fd_stat.st_uid != 0) || (fd_stat.st_gid != 0) ||
-      ((fd_stat.st_mode & (S_IWGRP | S_IWOTH)) != 0) ||
-      (fd_stat.st_size < static_cast<off_t>(sizeof(prop_area)))) {
-    return nullptr;
-  }
-
   pa_size_ = fd_stat.st_size;
   pa_data_size_ = pa_size_ - sizeof(prop_area);
 
